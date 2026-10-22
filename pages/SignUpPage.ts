@@ -1,14 +1,14 @@
 import { expect, Locator, Page } from "@playwright/test";
 
 export class SignUpPage {
-  usernameLocator: Locator;
-  passwordLocator: Locator;
-  emailLocator: Locator;
+  usernameInput: Locator;
+  passwordInput: Locator;
+  emailInput: Locator;
   createAccountButton: Locator;
   constructor(private page: Page) {
-    this.usernameLocator = page.getByPlaceholder("John_Doe");
-    this.passwordLocator = page.getByPlaceholder("Create a strong password");
-    this.emailLocator = page.getByPlaceholder("john@example.com");
+    this.usernameInput = page.getByPlaceholder("John_Doe");
+    this.passwordInput = page.getByPlaceholder("Create a strong password");
+    this.emailInput = page.getByPlaceholder("john@example.com");
     this.createAccountButton = page.getByRole("button", {
       name: "Create Account",
     });
@@ -19,9 +19,9 @@ export class SignUpPage {
   }
 
   async signUp(username: string, email: string, password: string) {
-    await this.usernameLocator.fill(username);
-    await this.passwordLocator.fill(password);
-    await this.emailLocator.fill(email);
+    await this.usernameInput.fill(username);
+    await this.passwordInput.fill(password);
+    await this.emailInput.fill(email);
     await this.createAccountButton.click();
   }
 
