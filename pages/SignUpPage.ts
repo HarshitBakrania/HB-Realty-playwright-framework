@@ -15,7 +15,7 @@ export class SignUpPage {
   }
 
   async goto() {
-    this.page.goto("/signup");
+    await this.page.goto("/signup");
   }
 
   async signUp(username: string, email: string, password: string) {

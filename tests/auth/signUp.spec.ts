@@ -1,16 +1,14 @@
-import { test, expect } from "@playwright/test";
-import { SignUpPage } from "../../pages/SignUpPage";
+import { test } from "../../fixtures/base.fixtures";
+import { expect } from "@playwright/test";
 
-test("create a new account", async ({ page }) => {
-  const signUp = new SignUpPage(page);
-  await signUp.goto();
-  await signUp.signUp("example03", "example03@test.com", "example03");
+test("create a new account", async ({ signUpPage, page }) => {
+  await signUpPage.goto();
+  await signUpPage.signUp("example04", "example04@test.com", "example04");
   await expect(page).toHaveURL("/");
 });
 
-test("creating a user with an existing account", async ({ page }) => {
-  const signUp = new SignUpPage(page);
-  await signUp.goto();
-  await signUp.signUp("example01", "example01@test.com", "example01");
-  await signUp.expectError();
+test("creating a user with an existing account", async ({ signUpPage }) => {
+  await signUpPage.goto();
+  await signUpPage.signUp("example01", "example01@test.com", "example01");
+  await signUpPage.expectError();
 });

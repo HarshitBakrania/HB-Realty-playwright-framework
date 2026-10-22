@@ -1,21 +1,19 @@
-import { test, expect } from "@playwright/test";
-import { SignInPage } from "../../pages/SignInPage";
+import { expect } from "@playwright/test";
+import { test } from "../../fixtures/base.fixtures";
 
 test.describe("Sign in", () => {
-  let signIn: SignInPage;
-
-  test.beforeEach(async ({ page }) => {
-    signIn = new SignInPage(page);
-    await signIn.goto();
-  });
-
-  test("user can sign in with valid credentials", async ({ page }) => {
-    await signIn.login("testuser003", "testuser003");
+  test("user can signin with valid credentials", async ({
+    signInPage,
+    page,
+  }) => {
+    await signInPage.goto();
+    await signInPage.login("testuser002", "testuser002");
     await expect(page).toHaveURL("/");
   });
 
-  test("shows error for invalid credentials", async () => {
-    await signIn.login("incorrectUsername", "incorrectPassword");
-    await signIn.expectError();
+  test("shows error for invalid credentials", async ({ signInPage }) => {
+    await signInPage.goto();
+    await signInPage.login("invalidUsername", "invalidPassword");
+    await signInPage.expectError();
   });
 });
