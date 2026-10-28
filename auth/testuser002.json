@@ -1,0 +1,25 @@
+{
+  "cookies": [
+    {
+      "name": "authToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhYjAxOTNiNjE4NzNjMWNhODRiZmRkYSIsImlhdCI6MTc5MzIwNDY5MCwiZXhwIjoyMzk4MDA0NjkwfQ.GTMtjkQ-Jyq2YL9fe1aLOiQb0PfyMr7jLZhz5b9v6nI",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1793809490.877947,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:5173",
+      "localStorage": [
+        {
+          "name": "user",
+          "value": "{\"user\":{\"id\":\"6ab0193b61873c1ca84bfdda\",\"email\":\"testuser002@gmail.com\",\"username\":\"testuser002\",\"avatar\":null,\"createdAt\":\"2026-09-20T17:34:50.675Z\",\"chatIDs\":[]},\"timestamp\":1793204690899}"
+        }
+      ]
+    }
+  ]
+}

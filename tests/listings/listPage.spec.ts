@@ -50,6 +50,7 @@ test.describe("List Page", () => {
 
   test("text is present if no properties are found", async ({ listPage }) => {
     await listPage.mockNoProperties();
+    await listPage.goto();
     await expect(listPage.noPropertiesFound).toBeVisible();
   });
 
