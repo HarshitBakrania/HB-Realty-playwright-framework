@@ -1,5 +1,10 @@
 import { Locator, Page } from "@playwright/test";
 
+export interface UpdateUserProfileInterface {
+  username?: string;
+  password?: string;
+  emailAddress?: string;
+}
 export class UpdateUserProfile {
   usernameInput: Locator;
   emailInput: Locator;
@@ -17,5 +22,20 @@ export class UpdateUserProfile {
     });
   }
 
-  
+  async goto() {
+    await this.page.goto("/user/update");
+  }
+
+  async updateProfile(info: UpdateUserProfileInterface) {
+    if (info.username) {
+      await this.usernameInput.fill(info.username);
+    }
+    if (info.emailAddress) {
+      await this.emailInput.fill(info.emailAddress);
+    }
+    if (info.password) {
+      await this.passwordInput.fill(info.password);
+    }
+    await this.updateProfileButton.click();
+  }
 }

@@ -7,6 +7,8 @@ import { PropertyPage } from "../pages/PropertyPage";
 import fs from "fs";
 import { UserPage } from "../pages/UserPage";
 import { CreateNewPost } from "../pages/CreateNewPost";
+import { UpdateUserProfile } from "../pages/UpdateUserProfile";
+import { NavBar } from "../pages/components/NavBar";
 
 export const test = base.extend<{
   signInPage: SignInPage;
@@ -17,6 +19,9 @@ export const test = base.extend<{
   authenticatedPage: Page;
   userPage: UserPage;
   createNewPost: CreateNewPost;
+  updateUserProfile: UpdateUserProfile;
+  navBar: NavBar;
+  authenticatedNavBar: NavBar;
 }>({
   signInPage: async ({ page }, use) => {
     await use(new SignInPage(page));
@@ -63,5 +68,14 @@ export const test = base.extend<{
   },
   createNewPost: async ({ authenticatedPage }, use) => {
     await use(new CreateNewPost(authenticatedPage));
+  },
+  updateUserProfile: async ({ authenticatedPage }, use) => {
+    await use(new UpdateUserProfile(authenticatedPage));
+  },
+  navBar: async ({ page }, use) => {
+    await use(new NavBar(page));
+  },
+  authenticatedNavBar: async ({ authenticatedPage }, use) => {
+    await use(new NavBar(authenticatedPage));
   },
 });
