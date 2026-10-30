@@ -5,6 +5,8 @@ import { HomePage } from "../pages/HomePage";
 import { ListPage } from "../pages/ListPage";
 import { PropertyPage } from "../pages/PropertyPage";
 import fs from "fs";
+import { UserPage } from "../pages/UserPage";
+import { CreateNewPost } from "../pages/CreateNewPost";
 
 export const test = base.extend<{
   signInPage: SignInPage;
@@ -13,6 +15,8 @@ export const test = base.extend<{
   listPage: ListPage;
   authPropertyPage: PropertyPage;
   authenticatedPage: Page;
+  userPage: UserPage;
+  createNewPost: CreateNewPost;
 }>({
   signInPage: async ({ page }, use) => {
     await use(new SignInPage(page));
@@ -53,5 +57,11 @@ export const test = base.extend<{
   },
   authPropertyPage: async ({ authenticatedPage }, use) => {
     await use(new PropertyPage(authenticatedPage));
+  },
+  userPage: async ({ authenticatedPage }, use) => {
+    await use(new UserPage(authenticatedPage));
+  },
+  createNewPost: async ({ authenticatedPage }, use) => {
+    await use(new CreateNewPost(authenticatedPage));
   },
 });

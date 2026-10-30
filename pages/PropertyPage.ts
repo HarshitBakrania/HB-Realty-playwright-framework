@@ -2,6 +2,7 @@ import { Locator, Page } from "@playwright/test";
 
 export class PropertyPage {
   leaftletMap: Locator;
+  propertyTitle: Locator;
   price: Locator;
   propertyType: Locator;
   property: Locator;
@@ -19,6 +20,7 @@ export class PropertyPage {
 
   constructor(private page: Page) {
     this.leaftletMap = page.locator(".leaflet-container");
+    this.propertyTitle = page.locator(".text-2xl");
     this.price = page.getByText(/^\$[\d,]+/);
     this.propertyType = page
       .getByText("Type", { exact: true })

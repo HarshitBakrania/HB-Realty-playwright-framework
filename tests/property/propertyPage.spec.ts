@@ -18,6 +18,7 @@ test.describe("Property Page Elements & Details", () => {
   }) => {
     await expect(authPropertyPage.price).toBeVisible();
     await expect(authPropertyPage.leaftletMap).toBeVisible();
+    await expect(authPropertyPage.propertyTitle).toBeVisible();
     await expect(authPropertyPage.propertyType).toBeVisible();
     await expect(authPropertyPage.property).toBeVisible();
     await expect(authPropertyPage.furnished).toBeVisible();
