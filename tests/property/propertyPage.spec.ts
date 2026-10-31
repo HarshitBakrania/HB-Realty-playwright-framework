@@ -47,4 +47,13 @@ test.describe("Property Page Elements & Details", () => {
       await expect(authPropertyPage.savePlaceButton).toHaveText("Save Place");
     }
   });
+
+  test("user can message the property owner", async ({
+    authPropertyPage,
+    authenticatedPage,
+  }) => {
+    await expect(authPropertyPage.sendMessageButton).toBeVisible();
+    await authPropertyPage.messageOwner();
+    await expect(authenticatedPage).toHaveURL("/user/messages");
+  });
 });

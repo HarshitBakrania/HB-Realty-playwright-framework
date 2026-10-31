@@ -73,4 +73,8 @@ export class PropertyPage {
   async toggleSave() {
     await this.savePlaceButton.click();
   }
+
+  async messageOwner() {
+    await this.sendMessageButton.click();
+  }
 }

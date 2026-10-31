@@ -1,4 +1,4 @@
-import { test as base, expect, Page } from "@playwright/test";
+import { test as base, Browser, expect, Page } from "@playwright/test";
 import { SignInPage } from "../pages/SignInPage";
 import { SignUpPage } from "../pages/SignUpPage";
 import { HomePage } from "../pages/HomePage";
@@ -9,6 +9,29 @@ import { UserPage } from "../pages/UserPage";
 import { CreateNewPost } from "../pages/CreateNewPost";
 import { UpdateUserProfile } from "../pages/UpdateUserProfile";
 import { NavBar } from "../pages/components/NavBar";
+import { MessagesPage } from "../pages/MessagesPage";
+
+export const ensureAuthUser = async (
+  browser: Browser,
+  username: string,
+  password: string,
+) => {
+  const authFile = `auth/${username}.json`;
+
+  if (!fs.existsSync(authFile)) {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto("/signin");
+    await page.getByPlaceholder("Enter your username").fill(username);
+    await page.getByPlaceholder("Enter your password").fill(password);
+    await page.getByRole("button", { name: "Sign In" }).click();
+    await page.waitForURL("/");
+    await context.storageState({ path: authFile });
+    await context.close();
+  }
+
+  return authFile;
+};
 
 export const test = base.extend<{
   signInPage: SignInPage;
@@ -22,6 +45,7 @@ export const test = base.extend<{
   updateUserProfile: UpdateUserProfile;
   navBar: NavBar;
   authenticatedNavBar: NavBar;
+  messagesPage: MessagesPage;
 }>({
   signInPage: async ({ page }, use) => {
     await use(new SignInPage(page));
@@ -36,22 +60,11 @@ export const test = base.extend<{
     await use(new ListPage(page));
   },
   authenticatedPage: async ({ browser }, use) => {
-    const authFile = "auth/testuser002.json";
-    if (!fs.existsSync(authFile)) {
-      const setupContext = await browser.newContext();
-      const setupPage = await setupContext.newPage();
-      await setupPage.goto("/signin");
-      await setupPage
-        .getByPlaceholder("Enter your username")
-        .fill("testuser002");
-      await setupPage
-        .getByPlaceholder("Enter your password")
-        .fill("testuser002");
-      await setupPage.getByRole("button", { name: "Sign In" }).click();
-      await setupPage.waitForURL("/");
-      await setupContext.storageState({ path: "auth/testuser002.json" });
-      await setupContext.close();
-    }
+    const authFile = await ensureAuthUser(
+      browser,
+      "testuser002",
+      "testuser002",
+    );
 
     const context = await browser.newContext({
       storageState: authFile,
@@ -77,5 +90,8 @@ export const test = base.extend<{
   },
   authenticatedNavBar: async ({ authenticatedPage }, use) => {
     await use(new NavBar(authenticatedPage));
+  },
+  messagesPage: async ({ authenticatedPage }, use) => {
+    await use(new MessagesPage(authenticatedPage));
   },
 });
