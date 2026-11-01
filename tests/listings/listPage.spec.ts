@@ -58,6 +58,7 @@ test.describe("List Page", () => {
     listPage,
     page,
   }) => {
+    await page.goto("/list");
     await listPage.propertyCards.first().click();
     await expect(page).toHaveURL("/signin");
   });

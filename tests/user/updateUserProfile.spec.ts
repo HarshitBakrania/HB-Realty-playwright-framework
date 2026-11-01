@@ -8,7 +8,7 @@ test.describe("Updating the user profile", () => {
     await expect(authenticatedPage).toHaveURL("/");
   });
 
-  test.only("Redirected to login page if user is not signed in", async ({
+  test("Redirected to login page if user is not signed in", async ({
     page,
   }) => {
     await page.goto("/user/update");

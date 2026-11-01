@@ -15,23 +15,29 @@ test("User 1 sends a message, User 2 receives it in real-time via WebSocket", as
   await user1Page.goto("/user/messages");
   await user2Page.goto("/user/messages");
 
-  await user1Page.locator(".flex-1.overflow-y-auto > div").last().click();
-  await user2Page.locator(".flex-1.overflow-y-auto > div").last().click();
+  await user1Page
+    .locator(".flex-1.overflow-y-auto > div")
+    .filter({ hasText: "Rohit" })
+    .click();
+  await user2Page
+    .locator(".flex-1.overflow-y-auto > div")
+    .filter({ hasText: "testuser004" })
+    .click();
 
   const user1Message = `User 1 test message ${Date.now()}`;
   const user2Message = `User 2 test message ${Date.now()}`;
 
   await user1Page.getByPlaceholder("Type your message...").fill(user1Message);
-  await user2Page.getByPlaceholder("Type your message...").fill(user2Message);
-
   await user1Page.locator(".p-4.border-t button").last().click();
-  await user2Page.locator(".p-4.border-t button").last().click();
 
   await expect(user1Page.getByText(user1Message).last()).toBeVisible();
-  await expect(user2Page.getByText(user2Message).last()).toBeVisible();
-
-  await expect(user1Page.getByText(user2Message).last()).toBeVisible();
   await expect(user2Page.getByText(user1Message).last()).toBeVisible();
+
+  await user2Page.getByPlaceholder("Type your message...").fill(user2Message);
+  await user2Page.locator(".p-4.border-t button").last().click();
+
+  await expect(user2Page.getByText(user2Message).last()).toBeVisible();
+  await expect(user1Page.getByText(user2Message).last()).toBeVisible();
 
   await user1Context.close();
   await user2Context.close();

@@ -23,11 +23,16 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["html", { open: "never" }]],
+  reporter: process.env.CI
+    ? [["github"], ["html", { open: "never" }]]
+    : [["html", { open: "never" }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: process.env.BASE_URL,
+    baseURL: (process.env.BASE_URL || "http://localhost:5173").replace(
+      /\/$/,
+      "",
+    ),
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
@@ -73,28 +78,29 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: [
-    {
-      command: "node index.js",
-      cwd: "../HB-Realty/api",
-      port: 3000,
-      reuseExistingServer: !process.env.CI,
-      timeout: 120_000,
-    },
-    {
-      command: "node app.js",
-      cwd: "../HB-Realty/websocket",
-      port: 4000,
-      reuseExistingServer: !process.env.CI,
-      timeout: 120_000,
-    },
-    {
-      command: "npm run dev",
-      cwd: "../HB-Realty/client",
-      port: 5173,
-      reuseExistingServer: !process.env.CI,
-      timeout: 120_000,
-    },
-  ],
+  webServer: process.env.CI
+    ? undefined
+    : [
+        {
+          command: "node index.js",
+          cwd: "../HB-Realty/api",
+          port: 3000,
+          reuseExistingServer: true,
+          timeout: 120_000,
+        },
+        {
+          command: "node app.js",
+          cwd: "../HB-Realty/websocket",
+          port: 4000,
+          reuseExistingServer: true,
+          timeout: 120_000,
+        },
+        {
+          command: "npm run dev",
+          cwd: "../HB-Realty/client",
+          port: 5173,
+          reuseExistingServer: true,
+          timeout: 120_000,
+        },
+      ],
 });

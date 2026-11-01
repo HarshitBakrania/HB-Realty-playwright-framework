@@ -20,8 +20,12 @@ test.describe("User Page", () => {
     userPage,
   }) => {
     await userPage.goto();
+    const apiUrl = (process.env.API_URL || "http://localhost:3000").replace(
+      /\/$/,
+      "",
+    );
     const userPosts = await authenticatedPage.request.get(
-      "http://localhost:3000/api/users/userPosts",
+      `${apiUrl}/api/users/userPosts`,
     );
     const userPostsJson = await userPosts.json();
     const savedPosts = userPostsJson.savedPosts;

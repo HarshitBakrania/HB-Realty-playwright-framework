@@ -4,8 +4,9 @@ import { test } from "../../fixtures/base.fixtures";
 test.describe("Property Page Elements & Details", () => {
   test.beforeEach(
     "get the first post from API",
-    async ({ request, authPropertyPage }) => {
-      const response = await request.get("http://localhost:3000/api/posts");
+    async ({ request, authPropertyPage, authenticatedPage }) => {
+      const apiUrl = (process.env.API_URL || "http://localhost:3000").replace(/\/$/, "");
+      const response = await request.get(`${apiUrl}/api/posts`);
       const posts = await response.json();
       const postId = posts[0].id;
 
@@ -35,16 +36,13 @@ test.describe("Property Page Elements & Details", () => {
   });
 
   test("save/unsave the property", async ({ authPropertyPage }) => {
-    if ((await authPropertyPage.savePlaceButton.innerText()) === "Save Place") {
-      await authPropertyPage.toggleSave();
-      await expect(authPropertyPage.savePlaceButton).toHaveText(
-        "Place is saved",
-      );
-    } else if (
-      (await authPropertyPage.savePlaceButton.innerText()) === "Place is saved"
-    ) {
-      await authPropertyPage.toggleSave();
-      await expect(authPropertyPage.savePlaceButton).toHaveText("Save Place");
+    const initialText = await authPropertyPage.savePlaceButton.innerText();
+    await authPropertyPage.toggleSave();
+
+    if (initialText === "Save Place") {
+      await expect(authPropertyPage.savePlaceButton).toHaveText("Place is saved", { timeout: 10000 });
+    } else {
+      await expect(authPropertyPage.savePlaceButton).toHaveText("Save Place", { timeout: 10000 });
     }
   });
 

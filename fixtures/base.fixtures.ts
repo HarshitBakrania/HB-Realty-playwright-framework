@@ -19,6 +19,7 @@ export const ensureAuthUser = async (
   const authFile = `auth/${username}.json`;
 
   if (!fs.existsSync(authFile)) {
+    fs.mkdirSync("auth", { recursive: true });
     const context = await browser.newContext();
     const page = await context.newPage();
     await page.goto("/signin");
@@ -26,6 +27,7 @@ export const ensureAuthUser = async (
     await page.getByPlaceholder("Enter your password").fill(password);
     await page.getByRole("button", { name: "Sign In" }).click();
     await page.waitForURL("/");
+    await page.waitForFunction(() => localStorage.getItem("user") !== null);
     await context.storageState({ path: authFile });
     await context.close();
   }

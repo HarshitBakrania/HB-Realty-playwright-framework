@@ -3,7 +3,12 @@ import { expect } from "@playwright/test";
 
 test("create a new account", async ({ signUpPage, page }) => {
   await signUpPage.goto();
-  await signUpPage.signUp("example04", "example04@test.com", "example04");
+  const testUser = Math.random() * 100;
+  await signUpPage.signUp(
+    `testuser${testUser}`,
+    `testuser${testUser}@test.com`,
+    `testuser${testUser}`,
+  );
   await expect(page).toHaveURL("/");
 });
 

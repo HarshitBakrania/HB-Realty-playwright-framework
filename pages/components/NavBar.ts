@@ -19,7 +19,7 @@ export class NavBar {
     this.contactLink = page.getByRole("navigation").getByText("Contact");
     this.aboutLink = page.getByRole("navigation").getByText("About");
     this.loginButton = page.getByRole("navigation").getByText("Login");
-    this.avatar = page.getByAltText("avatar");
+    this.avatar = page.getByRole("navigation").getByAltText("avatar");
     this.messagesIcon = page.getByRole("button").filter({ hasText: /^$/ });
   }
 

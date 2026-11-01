@@ -34,9 +34,7 @@ export class ListPage {
     this.leafletMap = page.locator(".leaflet-container");
     this.mapZoomInButton = page.locator(".leaflet-control-zoom-in");
     this.mapZoomOutButton = page.locator(".leaflet-control-zoom-out");
-    this.propertyCards = page
-      .locator("div")
-      .filter({ hasText: "View Details →" });
+    this.propertyCards = page.getByText("View Details →");
     this.noPropertiesFound = page.getByText("No properties found", {
       exact: true,
     });
