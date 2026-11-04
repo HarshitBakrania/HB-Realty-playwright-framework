@@ -1,6 +1,7 @@
 # 🏢 HB Realty — Automated Testing Framework
 
 [![Playwright Tests](https://github.com/HarshitBakrania/HB-Realty-playwright-framework/actions/workflows/playwright.yml/badge.svg)](https://github.com/HarshitBakrania/HB-Realty-playwright-framework/actions/workflows/playwright.yml)
+[![Live Test Report](https://img.shields.io/badge/Report-GitHub_Pages-2ea44f?style=flat&logo=github&logoColor=white)](https://harshitbakrania.github.io/HB-Realty-playwright-framework/)
 ![Playwright](https://img.shields.io/badge/Playwright-v1.64+-45ba4b?style=flat&logo=playwright&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6?style=flat&logo=typescript&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088ff?style=flat&logo=githubactions&logoColor=white)
@@ -8,6 +9,8 @@
 A full-stack automation testing framework written in **TypeScript** using **Playwright**, providing 67 end-to-end (E2E), REST API, and real-time WebSocket tests across 16 test suites.
 
 Built specifically to test the full-stack **[HB-Realty](https://github.com/HarshitBakrania/HB-Realty)** web application (React 18, Node.js/Express, MongoDB, Prisma, Socket.io), deployed live at **[real-estate-app-harshitbakranias-projects.vercel.app](https://real-estate-app-harshitbakranias-projects.vercel.app/)**.
+
+📊 **Interactive Test Report**: [harshitbakrania.github.io/HB-Realty-playwright-framework](https://harshitbakrania.github.io/HB-Realty-playwright-framework/)
 
 ---
 
